@@ -1,4 +1,4 @@
-//all imports go here
+// all imports go here
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,11 +11,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ContactFormComponent implements OnInit {
 
   rForm: FormGroup;
-  post:any;                     // A property for our submitted form
-  message:string = '';
-  firstname:string = '';
-  lastname:string = '';
-  email:string = '';
+  post: any;                     // A property for our submitted form
+  message: string = '';
+  firstname: string = '';
+  lastname: string = '';
+  email: string = '';
+
+
+  ngOnInit() {
+
+    this.rForm.get('validate').valueChanges.subscribe(
+
+      (validate) => {
+
+          if (validate == '1') {
+              this.rForm.get('firstname').setValidators([Validators.required, Validators.minLength(3)]);
+              this.titleAlert = 'You need to specify at least 3 characters';
+          } else {
+              this.rForm.get('firstname').setValidators(Validators.required);
+          }
+          this.rForm.get('firstname').updateValueAndValidity();
+
+      });
+
+  }
 
 
 
@@ -38,24 +57,9 @@ export class ContactFormComponent implements OnInit {
     this.lastname = post.lastname;
     this.email = post.email;
   }
-  }
-
-  ngOnInit() {
-
-    this.rForm.get('validate').valueChanges.subscribe(
-
-      (validate) => {
-
-          if (validate == '1') {
-              this.rForm.get('firstname').setValidators([Validators.required, Validators.minLength(3)]);
-              this.titleAlert = 'You need to specify at least 3 characters';
-          } else {
-              this.rForm.get('firstname').setValidators(Validators.required);
-          }
-          this.rForm.get('firstname').updateValueAndValidity();
-
-      });
 
   }
 
-}
+
+
+
