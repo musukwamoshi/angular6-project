@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css']
 })
+
 export class ContactFormComponent implements OnInit {
 
   rForm: FormGroup;
@@ -15,24 +16,11 @@ export class ContactFormComponent implements OnInit {
   message: string = '';
   firstname: string = '';
   lastname: string = '';
-  email: string = '';
+  email: string  = '';
+  alert: string  = 'This field is required.';
 
 
   ngOnInit() {
-
-    this.rForm.get('validate').valueChanges.subscribe(
-
-      (validate) => {
-
-          if (validate === '1') {
-              this.rForm.get('firstname').setValidators([Validators.required, Validators.minLength(3)]);
-              this.titleAlert = 'You need to specify at least 3 characters';
-          } else {
-              this.rForm.get('firstname').setValidators(Validators.required);
-          }
-          this.rForm.get('firstname').updateValueAndValidity();
-
-      });
 
   }
 
@@ -50,8 +38,9 @@ export class ContactFormComponent implements OnInit {
 
   }
 
-  // can be replaced with a function that sends data to a backend api
+  // can be replaced with a function that sends data to an api
   addPost(post) {
+
     this.message = post.message;
     this.firstname = post.firstname;
     this.lastname = post.lastname;
