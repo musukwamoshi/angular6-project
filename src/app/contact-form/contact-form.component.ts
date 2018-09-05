@@ -24,7 +24,7 @@ export class ContactFormComponent implements OnInit {
 
       (validate) => {
 
-          if (validate == '1') {
+          if (validate === '1') {
               this.rForm.get('firstname').setValidators([Validators.required, Validators.minLength(3)]);
               this.titleAlert = 'You need to specify at least 3 characters';
           } else {
@@ -50,7 +50,7 @@ export class ContactFormComponent implements OnInit {
 
   }
 
-  //can be replaced with a function that sends data to a backend api
+  // can be replaced with a function that sends data to a backend api
   addPost(post) {
     this.message = post.message;
     this.firstname = post.firstname;
